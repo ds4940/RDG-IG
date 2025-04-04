@@ -18,9 +18,20 @@ npm run dev
 
 ## Running Playwright Tests
 
-The Playwright UI can be run with the following command:
+The Playwright tests can be run with the following commands:
 ```bash
-npm run playwright
+test:playwright:ui-service
+```
+
+```bash
+test:playwright:e2e
+```
+
+## Running API Tests
+
+The API tests can be run with the following commands:
+```bash
+test:newman
 ```
 
 Alternatively, the [Playwright VS Code extension](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright) can be used. Tests should appear in the Test Explorer.
