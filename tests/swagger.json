@@ -1,0 +1,99 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "NextJS Swagger",
+        "version": "0.1.0"
+    },
+    "paths": {
+        "/api/images": {
+            "get": {
+                "description": "Returns a list of images",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "keyword",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "Keyword to filter images"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of images"
+                    },
+                    "400": {
+                        "description": "Invalid keyword"
+                    }
+                }
+            },
+            "post": {
+                "description": "Adds a new image",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "type": "string"
+                                    },
+                                    "keywords": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Image added successfully"
+                    },
+                    "400": {
+                        "description": "Missing title, image, or keywords"
+                    }
+                }
+            },
+            "delete": {
+                "description": "Deletes an image",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "ID of the image to delete"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Image deleted successfully"
+                    },
+                    "404": {
+                        "description": "Image not found"
+                    }
+                }
+            },
+            "all": {
+                "description": "Method not allowed",
+                "responses": {
+                    "405": {
+                        "description": "Method not allowed"
+                    }
+                }
+            }
+        }
+    },
+    "components": {},
+    "tags": []
+}

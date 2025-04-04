@@ -1,0 +1,739 @@
+{
+	"info": {
+		"_postman_id": "f6a992fd-bc45-4121-8b78-1ef18bfc410f",
+		"name": "NextJS Swagger",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43698444",
+		"_collection_link": "https://davidsharp-591553.postman.co/workspace/David-Sharp's-Workspace~0dfb9731-a7cd-4eab-8ba4-03a9a6b761ff/collection/43698444-f6a992fd-bc45-4121-8b78-1ef18bfc410f?action=share&source=collection_link&creator=43698444"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "images",
+					"item": [
+						{
+							"name": "Returns a list of images",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response has a size of 3\", function () {\r",
+											"    const response = pm.response.json();\r",
+											"    pm.expect(response.length).to.eql(3);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Verify Response Code\"), function(){\r",
+											"    pm.expect(res).to.have.property('status', 200)\r",
+											"}"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/images?keyword=",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"images"
+									],
+									"query": [
+										{
+											"key": "keyword",
+											"value": "",
+											"description": "Keyword to filter images"
+										}
+									]
+								},
+								"description": "Returns a list of images"
+							},
+							"response": [
+								{
+									"name": "A list of images",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/images?keyword=<string>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"images"
+											],
+											"query": [
+												{
+													"key": "keyword",
+													"value": "<string>",
+													"description": "Keyword to filter images"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Invalid keyword",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/images?keyword=<string>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"images"
+											],
+											"query": [
+												{
+													"key": "keyword",
+													"value": "<string>",
+													"description": "Keyword to filter images"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Adds a new image",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json(); \r",
+											"console.log(response)\r",
+											"pm.sendRequest({\r",
+											"    url: pm.collectionVariables.get(\"baseUrl\") + `/api/images?id=${response.id}`,\r",
+											"    method: 'DELETE',\r",
+											"    header: {\r",
+											"        'Content-Type': 'application/json'\r",
+											"    }\r",
+											"},\r",
+											"function (err, res) {\r",
+											"    if (err) {\r",
+											"        console.log(\"Error in resourse tear down:\", err);\r",
+											"    } else {\r",
+											"        console.log(\"resourse tear down successful:\");\r",
+											"    }\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Verify Response Code\"), function(){\r",
+											"    pm.expect(res).to.have.property('status', 201)\r",
+											"}"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\": \"Test title\",\n  \"image\": \"https://fastly.picsum.photos/id/63/5000/2813.jpg?hmac=HvaeSK6WT-G9bYF_CyB2m1ARQirL8UMnygdU9W6PDvM\",\n  \"keywords\": [\n    \"test\",\n    \"image\"\n  ],\n  \"uploadDate\":\"2024-01-01\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/images",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"images"
+									]
+								},
+								"description": "Adds a new image"
+							},
+							"response": [
+								{
+									"name": "Image added successfully",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"title\": \"<string>\",\n  \"image\": \"<string>\",\n  \"keywords\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/images",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"images"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Missing title, image, or keywords",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"title\": \"<string>\",\n  \"image\": \"<string>\",\n  \"keywords\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/images",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"images"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Request payload is invalid for an image",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json(); \r",
+											"console.log(response)\r",
+											"pm.sendRequest({\r",
+											"    url: pm.collectionVariables.get(\"baseUrl\") + `/api/images?id=${response.id}`,\r",
+											"    method: 'DELETE',\r",
+											"    header: {\r",
+											"        'Content-Type': 'application/json'\r",
+											"    }\r",
+											"},\r",
+											"function (err, res) {\r",
+											"    if (err) {\r",
+											"        console.log(\"Error in resourse tear down:\", err);\r",
+											"    } else {\r",
+											"        console.log(\"resourse tear down successful:\");\r",
+											"    }\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Verify Response Code\"), function(){\r",
+											"    pm.expect(res).to.have.property('status', 201)\r",
+											"}"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\": \"Test title\",\n  \"image\": \"https://fastly.picsum.photos/id/63/5000/2813.jpg?hmac=HvaeSK6WT-G9bYF_CyB2m1ARQirL8UMnygdU9W6PDvM\",\n  \"keywords\": [\n    \"test\",\n    \"image\"\n  ],\n  \"uploadDate\":\"2024-01-01\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/images",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"images"
+									]
+								},
+								"description": "Adds a new image"
+							},
+							"response": [
+								{
+									"name": "Image added successfully",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"title\": \"<string>\",\n  \"image\": \"<string>\",\n  \"keywords\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/images",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"images"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Missing title, image, or keywords",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"title\": \"<string>\",\n  \"image\": \"<string>\",\n  \"keywords\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/images",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"images"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Deletes an image",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Verify Response Code\"), function(){\r",
+											"    pm.expect(res).to.have.property('status', 200)\r",
+											"}"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const requestBody = {\r",
+											"    \"title\": \"Test title\",\r",
+											"    \"image\": \"https://fastly.picsum.photos/id/63/5000/2813.jpg?hmac=HvaeSK6WT-G9bYF_CyB2m1ARQirL8UMnygdU9W6PDvM\",\r",
+											"    \"keywords\": [\r",
+											"      \"test\",\r",
+											"      \"image\"\r",
+											"    ],\r",
+											"    \"uploadDate\":\"2024-01-01\"\r",
+											"  };\r",
+											"\r",
+											"pm.sendRequest({\r",
+											"    url: pm.collectionVariables.get(\"baseUrl\") + \"/api/images\",\r",
+											"    method: \"POST\",\r",
+											"    header: {\r",
+											"        \"Content-Type\": \"application/json\"\r",
+											"    },\r",
+											"    body: {\r",
+											"        mode: \"raw\",\r",
+											"        raw: JSON.stringify(requestBody)\r",
+											"    }\r",
+											"}, function (err, res) {\r",
+											"    if (err) {\r",
+											"        console.error(\"Error creating Image Resource as part of test setup:\", err);\r",
+											"    } else {\r",
+											"        console.log(\"Image Resource created:\");       \r",
+											"        const imageId = res.json().id;\r",
+											"        pm.variables.set(\"imageId\", imageId);\r",
+											"    }\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/images?id={{imageId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"images"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{imageId}}"
+										}
+									]
+								},
+								"description": "Deletes an image"
+							},
+							"response": [
+								{
+									"name": "Image deleted successfully",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/images?id=<string>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"images"
+											],
+											"query": [
+												{
+													"key": "id",
+													"value": "<string>",
+													"description": "(Required) ID of the image to delete"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Image not found",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/images?id=<string>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"images"
+											],
+											"query": [
+												{
+													"key": "id",
+													"value": "<string>",
+													"description": "(Required) ID of the image to delete"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Request Id is invalid for an image",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Verify Response Code\"), function(){\r",
+											"    pm.expect(res).to.have.property('status', 200)\r",
+											"}"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const requestBody = {\r",
+											"    \"title\": \"Test title\",\r",
+											"    \"image\": \"https://fastly.picsum.photos/id/63/5000/2813.jpg?hmac=HvaeSK6WT-G9bYF_CyB2m1ARQirL8UMnygdU9W6PDvM\",\r",
+											"    \"keywords\": [\r",
+											"      \"test\",\r",
+											"      \"image\"\r",
+											"    ],\r",
+											"    \"uploadDate\":\"2024-01-01\"\r",
+											"  };\r",
+											"\r",
+											"pm.sendRequest({\r",
+											"    url: pm.collectionVariables.get(\"baseUrl\") + \"/api/images\",\r",
+											"    method: \"POST\",\r",
+											"    header: {\r",
+											"        \"Content-Type\": \"application/json\"\r",
+											"    },\r",
+											"    body: {\r",
+											"        mode: \"raw\",\r",
+											"        raw: JSON.stringify(requestBody)\r",
+											"    }\r",
+											"}, function (err, res) {\r",
+											"    if (err) {\r",
+											"        console.error(\"Error creating Image Resource as part of test setup:\", err);\r",
+											"    } else {\r",
+											"        console.log(\"Image Resource created:\");       \r",
+											"        const imageId = res.json().id;\r",
+											"        pm.variables.set(\"imageId\", imageId);\r",
+											"    }\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/images?id={{imageId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"images"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{imageId}}"
+										}
+									]
+								},
+								"description": "Deletes an image"
+							},
+							"response": [
+								{
+									"name": "Image deleted successfully",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/images?id=<string>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"images"
+											],
+											"query": [
+												{
+													"key": "id",
+													"value": "<string>",
+													"description": "(Required) ID of the image to delete"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Image not found",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/images?id=<string>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"images"
+											],
+											"query": [
+												{
+													"key": "id",
+													"value": "<string>",
+													"description": "(Required) ID of the image to delete"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000"
+		},
+		{
+			"key": "imageId",
+			"value": ""
+		}
+	]
+}
